@@ -1,0 +1,4 @@
+sudo service redis-server stop
+./vendor/bin/sail up -d
+ npm run dev
+ ./vendor/bin/sail stop
