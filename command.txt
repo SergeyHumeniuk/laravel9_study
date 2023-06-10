@@ -2,3 +2,7 @@ sudo service redis-server stop
 ./vendor/bin/sail up -d
  npm run dev
  ./vendor/bin/sail stop
+./vendor/bin/sail artisan make:controller *****
+
+/#назначення ключа для git
+git remote set-url origin https://TOKEN@github.com/SergeyHumeniuk/laravel9_study.git

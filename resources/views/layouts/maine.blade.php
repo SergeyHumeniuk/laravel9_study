@@ -11,6 +11,12 @@
             $text_maine_proposition = $setting['text_maine_proposition'];
             $baner_maine_proposition = $setting['baner_maine_proposition'];
         }
+        //count session
+        if(session('cart')!==NULL){
+            $countCart = count(session('cart'));
+        }else{
+            $countCart = 0;
+        }
     @endphp
 <head>
     <meta charset="utf-8">
@@ -104,7 +110,7 @@
 						<!-- ACCOUNT -->
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
-								<!-- Wishlist -->
+								<!-- Wishlist
 								<div>
 									<a href="#">
 										<i class="fa fa-heart-o"></i>
@@ -112,46 +118,61 @@
 										<div class="qty">2</div>
 									</a>
 								</div>
-								<!-- /Wishlist -->
+								 /Wishlist -->
 
 								<!-- Cart -->
 								<div class="dropdown">
 									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-shopping-cart"></i>
-										<span>Your Cart</span>
-										<div class="qty">3</div>
+										<span>Кошик</span>
+                                        @if (session('cart'))
+                                            <div class="qty">{{$countCart}}</div>
+                                        @else
+                                            <div class="qty">0</div>
+                                        @endif
 									</a>
 									<div class="cart-dropdown">
 										<div class="cart-list">
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="{{asset('./img/product01.png')}}" alt="">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
+                                            @php
+                                                $subtotal = 0;
+                                            @endphp
+                                            @if (session('cart'))
+                                                @foreach ( session('cart') as $cart_id=>$cart)
 
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="{{asset('./img/product02.png')}}" alt="">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
+                                                <div class="product-widget">
+                                                    @foreach ($cart['product'] as $cartProduct)
+                                                        @php
+                                                            $subtotal += $cartProduct['price'] * $cart['quantety'];
+                                                        @endphp
+                                                        <div class="product-img">
+                                                            @foreach ($cartProduct->productImages as $images)
+                                                                @if ($loop->first)
+                                                                    <img src="{{asset('storage/'.$images['image'])}}" alt="{{$cartProduct['id']}}" width="60" height="60">
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                        <div class="product-body">
+                                                            <h3 class="product-name"><a href="#">{{$cartProduct['name']}}</a></h3>
+                                                            <h4 class="product-price"><span class="qty">{{$cart['quantety']}}*</span>{{$cartProduct['price']}}</h4>
+                                                        </div>
+                                                        <form action="/cart/delete/{{$cartProduct['id']}}'" method="post">
+                                                            @csrf
+                                                            <button class="delete" type="submit"><i class="fa fa-close"></i></button>
+                                                        </form>
+                                                    @endforeach
+                                                </div>
+
+                                                @endforeach
+                                            @endif
+
 										</div>
 										<div class="cart-summary">
-											<small>3 Item(s) selected</small>
-											<h5>SUBTOTAL: $2940.00</h5>
+											<small>{{$countCart}} продукта вибрано</small>
+											<h5>ПІДСУМОК: {{$subtotal}}</h5>
 										</div>
 										<div class="cart-btns">
-											<a href="#">View Cart</a>
-											<a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+											<a href="{{route('home')}}">Продовжити покупки</a>
+											<a href="{{route('cart')}}">Оформити замовлення  <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
 								</div>
@@ -275,7 +296,6 @@
                     </div>
 
                     <div class="clearfix visible-xs"></div>
-
                     <div class="col-md-3 col-xs-6">
                         <div class="footer">
                             <h3 class="footer-title">Information</h3>
@@ -344,5 +364,6 @@
 <script src="{{asset('js/nouislider.min.js')}}"></script>
 <script src="{{asset('js/jquery.zoom.min.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
+<script src="{{asset('js/function.js')}}"></script>
 </body>
 </html>

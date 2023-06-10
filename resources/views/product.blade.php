@@ -41,24 +41,15 @@
             <div class="col-md-5">
                 <div class="product-details">
                     <h2 class="product-name">{{$prod['name']}}</h2>
+
                     <div>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                        <a class="review-link" href="#">10 Review(s) | Add your review</a>
-                    </div>
-                    <div>
-                        <h3 class="product-price">{{$prod['name']}}.00 <del class="product-old-price">{{($prod['price']+ ($prod['price'] * ($prod['discount'] / 100)))}}.00</del></h3>
-                        <span class="product-available">In Stock</span>
+                        <h3 class="product-price">{{$prod['price']}}.00 <del class="product-old-price">{{($prod['price']+ ($prod['price'] * ($prod['discount'] / 100)))}}.00</del></h3>
+                        <span class="product-available">В наявності</span>
                     </div>
                     @foreach ($prod->productOptions as $option)
 
                     @endforeach
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>{{$prod['description']}}</p>
 
                     <div class="product-options">
                         <label>

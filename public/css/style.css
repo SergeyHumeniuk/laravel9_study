@@ -500,6 +500,7 @@ textarea.input {
 
 .header-ctn>div {
   display: inline-block;
+  cursor: pointer;
 }
 
 .header-ctn>div+div {
@@ -864,6 +865,7 @@ textarea.input {
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
   width: 350px;
+  padding: 0px;
 }
 
 .product:hover {
@@ -1020,10 +1022,11 @@ textarea.input {
 }
 
 .product .add-to-cart {
-  position: absolute;
+  /*position: absolute;
   left: 1px;
   right: 1px;
-  bottom: 1px;
+  bottom: 1px;*/
+  width: 100%;
   padding: 15px;
   background: #1e1f29;
   text-align: center;
@@ -1035,11 +1038,11 @@ textarea.input {
   z-index: 2;
 }
 
-.product:hover .add-to-cart {
+/*.product:hover .add-to-cart {
   -webkit-transform: translateY(100%);
   -ms-transform: translateY(100%);
   transform: translateY(100%);
-}
+}*/
 
 .product .add-to-cart .add-to-cart-btn {
   position: relative;
@@ -1143,17 +1146,18 @@ textarea.input {
 }
 
 .product-widget .delete {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 14px;
-  width: 14px;
-  text-align: center;
-  font-size: 10px;
-  padding: 0;
-  background: #1e1f29;
-  border: none;
-  color: #FFF;
+    position: absolute;
+    top: 0;
+    /* left: 0; */
+    right: 20px;
+    height: 22px;
+    width: 22px;
+    text-align: center;
+    font-size: 15px;
+    padding: 0;
+    background: #1e1f29;
+    border: none;
+    color: #FFF;
 }
 
 /*----------------------------*\
